@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Colorize Terminal Output</title>
+        <meta name="description" content="color in shell, color in terminal">
+        <meta name="viewport" content="width=device-width">
+
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/bootstrap-responsive.min.css">
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="spectrum/spectrum.css">
+        <style>
+            body {
+              padding-top: 60px;
+              padding-bottom: 40px;
+            }
+            .navbar-inverse .navbar-inner {
+              background-color: #39152e;
+              background-image: linear-gradient(to bottom, #312, #39152e);
+              background-repeat: repeat-x;
+              border-color: #39152e;
+            }
+            div.terminal { 
+              background: url(console/bg-cut.png) 0 0 repeat-y scroll transparent;
+	      font: normal bold 12px/20px 'Ubuntu Mono', monospace; 
+              min-height: 100px; color: #ddd; padding-bottom: 1em; margin-left: -6px; }
+            div.terminal-title { background: url(console/bg-title-cut.png) 0 0 no-repeat scroll transparent; }
+            div.terminal-title p { padding: 36px 60px 7px 15px; text-indent: 30px; }
+            span.escape { background-color: #666; }
+            span.escbegin, span.escend { background-color: #bbb; }
+            span.carriage { background-color: transparent; color: #999; padding-left: 0.8em; }
+            /* span.escsent { font-weight: bold; background-color: #bbb; } */
+
+	    input.sp-input { height: 28px; }
+
+            .huge { font-size: 56px; line-height: 80px; background-color: #39152e; padding: 0.4em 0.8em; }
+	    .code { font: normal bold 16px/32px 'Ubuntu Mono', monospace; }
+        </style>
+
+        <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+	<header id="header">
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="#">Shell Color Builder</a>
+                    <div class="nav-collapse collapse">
+                        <ul class="nav">
+                            <li class="active"><a href="#">Home</a></li>
+                            <li><a href="#about">Author’s blog</a></li>
+                        </ul>
+                    </div><!--/.nav-collapse -->
+                </div>
+            </div>
+        </div>
+        </header>
+
+        <div class="container">
+
+            <!-- Main hero unit for a primary marketing message or call to action -->
+            <div class="hero-unit">
+                <h1>Color Builder for Terminal</h1>
+                <p> </p> 
+                <p>Nowadays terminals support 256 colors.</p>
+                <p>Why not use weird escape sentenses in your nifty logging? Choose your preferred colors and copy the crazyescapes below.</p>
+                <p> </p> 
+                <span class="label huge csscolored">\e[<span class="escsent"></span>m</span>
+                
+                <!--p><a class="btn btn-primary btn-large">Technical background &raquo;</a></p-->
+            </div>
+
+            <!-- Example row of columns -->
+            <div class="row">
+               <div class="span4" style="padding-top: 0.8em;">
+                    <h2>Styles</h2>
+                    <button class="btn active" type="button" id="bold_checker"><b>bold</b></button>
+                    <button class="btn" type="button" id="italic_checker"><i>italic</i></button>
+                    <button class="btn" type="button" id="underline_checker"><u>underline</u></button>
+                    <button class="btn" type="button" id="reverse_checker">reverse</button><br><br>
+                    <span style="margin: 0 2em 0 1em;"><input type="text" id="fg_colorpicker">  <input type="checkbox" id="fg_checker" checked>  fg</span>
+		    <span style="margin: 0 2em 0 1em;"><input type="text" id="bg_colorpicker">  <input type="checkbox" id="bg_checker">  bg</span>
+                </div>
+                <div class="span4">
+                    <h2>Result</h2>
+                    <div class="terminal"><div class="terminal-title">
+                    <p>MY_CLR="\e[<span class="escsent"></span>m" \<span class="carriage">↵</span><br>
+                    echo "$MY_CLRHello, world!<span class="carriage">↵</span><br><br>
+                    <span class="csscolored">Hello, world!</p>
+                    </div></div>
+                </div>
+                <div class="span4">
+                    <h2>Escape sentences</h2>
+                    <p>Feel free to use one of the following escape sentenses (NB! Insert <span class="escape code">^[</span> using <span class="escbegin code">Ctrl+V</span> followed by <span class="escbegin">Esc</span>):
+                    <ul class="code"><li><span class="escape">^[</span><span class="escbegin">[</span><span class="escsent"></span><span class="escend">m</span></li>
+                    <li><span class="escape"></span><span class="escbegin">\e[</span><span class="escsent"></span><span class="escend">m</span></li>
+                    <li><span class="escape"></span><span class="escbegin">\033[</span><span class="escsent"></span><span class="escend">m</span></li></ul>
+               </div>
+            </div>
+
+            <hr>
+
+            <footer id="footer">
+                <p>© mudasobwa 2012 — all rights are kindly given</p>
+            </footer>
+
+        </div> <!-- /container -->
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.8.3.min.js"><\/script>')</script>
+
+        <script src="js/vendor/bootstrap.min.js"></script>
+
+        <script src="js/plugins.js"></script>
+        <script src="js/main.js"></script>
+        <script src="spectrum/spectrum.js"></script>
+        <script>
+          var fgColor = "#ffd966"
+          var fgColorDef = "#dddddd"
+          var bgColor = "#274e13"
+          var bgColorDef = "#39152e"
+          var setFgColor = function(color) { fgColor = color; recalc(); }
+          var setBgColor = function(color) { bgColor = color; recalc(); }
+          
+          var esccol = function(csscol) {
+            r = g = b = 0
+            if (csscol.length < 6) {
+              r = parseInt("0x" + csscol.substring(1, 2) + csscol.substring(1, 2))
+              g = parseInt("0x" + csscol.substring(2, 3) + csscol.substring(2, 3))
+              b = parseInt("0x" + csscol.substring(3, 4) + csscol.substring(3, 4))
+            } else {
+              r = parseInt("0x" + csscol.substring(1, 3))
+              g = parseInt("0x" + csscol.substring(3, 5))
+              b = parseInt("0x" + csscol.substring(5, 7))
+            }
+            if ( r == g && r == b ) 
+	      return ( r > 239 ) ? 15 : Math.floor(r / 10) + 232
+                 
+            r = Math.floor(r / 51)
+            g = Math.floor(g / 51)
+            b = Math.floor(b / 51)
+            return 16 + 36 * r + 6 * g + b
+          }
+          var recalc = function() {
+            /* Reset 00; Bold 01; Italic 03; Underline 04; Blink 05; Reverse 07;
+               No Bold 22; No Italic 23; No Underline 24; No Blink 25; No Reverse 27 */
+            escmods = ($("#bold_checker").hasClass("active") ? "01;" : "") +
+                      ($("#italic_checker").hasClass("active") ? "03;" : "") +
+                      ($("#underline_checker").hasClass("active") ? "04;" : "") +
+                      ($("#reverse_checker").hasClass("active") ? "07;" : "") +
+                      ($("#fg_checker").is(":checked") ? "38;05;" + esccol(fgColor) + ";" : "") + 
+                      ($("#bg_checker").is(":checked") ? "48;05;" + esccol(bgColor) + ";" : "")
+            if (escmods.length > 0)
+              escmods = escmods.substring(0, escmods.length - 1)
+ 	    $(".escsent").html(escmods);
+            $(".csscolor").html(fgColor + " @ " + bgColor);
+           
+            fgc = $("#fg_checker").is(":checked") ? fgColor : fgColorDef 
+            bgc = $("#bg_checker").is(":checked") ? bgColor : bgColorDef
+            if ($("#reverse_checker").hasClass("active")) { c = fgc; fgc = bgc; bgc = c; }
+            $(".csscolored")
+              .css("color", fgc)
+              .css("background-color", bgc)
+              .css("font-weight", $("#bold_checker").hasClass("active") ? "bold" : "normal")
+              .css("font-style", $("#italic_checker").hasClass("active") ? "italic" : "normal")
+              .css("text-decoration", $("#underline_checker").hasClass("active") ? "underline" : "none");
+	  }
+          $("#bold_checker").click(function() { $(this).toggleClass("active"); recalc() });
+          $("#italic_checker").click(function() { $(this).toggleClass("active"); recalc() });
+          $("#underline_checker").click(function() { $(this).toggleClass("active"); recalc() });
+          $("#reverse_checker").click(function() { $(this).toggleClass("active"); recalc() });
+          $("#reverse_checker").click(function() { $(this).toggleClass("btn-inverse"); recalc() });
+          $("#fg_checker").click(function() { recalc() });
+          $("#bg_checker").click(function() { recalc() });
+	</script>
+	<script>
+	  $("#fg_colorpicker").spectrum({
+	    flat: false, cancelText: "Cancel", chooseText: "Apply", color: fgColor,
+	    showInitial: true, showInput: true, showAlpha: false, localStorageKey: "spectrum.colorpicker",
+	    showPalette: true, showSelectionPalette: true, clickoutFiresChange: true,
+            change: function(color) { setFgColor(color.toHexString()); }, preferredFormat: "hex",
+            palette: [
+                ["rgb(0, 0, 0)", "rgb(67, 67, 67)", "rgb(102, 102, 102)",
+                "rgb(204, 204, 204)", "rgb(217, 217, 217)","rgb(255, 255, 255)"],
+                ["rgb(152, 0, 0)", "rgb(255, 0, 0)", "rgb(255, 153, 0)", "rgb(255, 255, 0)", "rgb(0, 255, 0)",
+                "rgb(0, 255, 255)", "rgb(74, 134, 232)", "rgb(0, 0, 255)", "rgb(153, 0, 255)", "rgb(255, 0, 255)"],
+                ["rgb(230, 184, 175)", "rgb(244, 204, 204)", "rgb(252, 229, 205)", "rgb(255, 242, 204)", "rgb(217, 234, 211)",
+                "rgb(208, 224, 227)", "rgb(201, 218, 248)", "rgb(207, 226, 243)", "rgb(217, 210, 233)", "rgb(234, 209, 220)",
+                "rgb(221, 126, 107)", "rgb(234, 153, 153)", "rgb(249, 203, 156)", "rgb(255, 229, 153)", "rgb(182, 215, 168)",
+                "rgb(162, 196, 201)", "rgb(164, 194, 244)", "rgb(159, 197, 232)", "rgb(180, 167, 214)", "rgb(213, 166, 189)",
+                "rgb(204, 65, 37)", "rgb(224, 102, 102)", "rgb(246, 178, 107)", "rgb(255, 217, 102)", "rgb(147, 196, 125)",
+                "rgb(118, 165, 175)", "rgb(109, 158, 235)", "rgb(111, 168, 220)", "rgb(142, 124, 195)", "rgb(194, 123, 160)",
+                "rgb(166, 28, 0)", "rgb(204, 0, 0)", "rgb(230, 145, 56)", "rgb(241, 194, 50)", "rgb(106, 168, 79)",
+                "rgb(69, 129, 142)", "rgb(60, 120, 216)", "rgb(61, 133, 198)", "rgb(103, 78, 167)", "rgb(166, 77, 121)",
+                "rgb(91, 15, 0)", "rgb(102, 0, 0)", "rgb(120, 63, 4)", "rgb(127, 96, 0)", "rgb(39, 78, 19)",
+                "rgb(12, 52, 61)", "rgb(28, 69, 135)", "rgb(7, 55, 99)", "rgb(32, 18, 77)", "rgb(76, 17, 48)"]
+            ]
+	  });
+	  $("#bg_colorpicker").spectrum({
+	    flat: false, cancelText: "Cancel", chooseText: "Apply", color: bgColor,
+	    showInitial: true, showInput: true, showAlpha: false, localStorageKey: "spectrum.colorpicker",
+	    showPalette: true, showSelectionPalette: true, clickoutFiresChange: true,
+            change: function(color) { setBgColor(color.toHexString()); }, preferredFormat: "hex",
+            palette: [
+                ["rgb(0, 0, 0)", "rgb(67, 67, 67)", "rgb(102, 102, 102)",
+                "rgb(204, 204, 204)", "rgb(217, 217, 217)","rgb(255, 255, 255)"],
+                ["rgb(152, 0, 0)", "rgb(255, 0, 0)", "rgb(255, 153, 0)", "rgb(255, 255, 0)", "rgb(0, 255, 0)",
+                "rgb(0, 255, 255)", "rgb(74, 134, 232)", "rgb(0, 0, 255)", "rgb(153, 0, 255)", "rgb(255, 0, 255)"],
+                ["rgb(230, 184, 175)", "rgb(244, 204, 204)", "rgb(252, 229, 205)", "rgb(255, 242, 204)", "rgb(217, 234, 211)",
+                "rgb(208, 224, 227)", "rgb(201, 218, 248)", "rgb(207, 226, 243)", "rgb(217, 210, 233)", "rgb(234, 209, 220)",
+                "rgb(221, 126, 107)", "rgb(234, 153, 153)", "rgb(249, 203, 156)", "rgb(255, 229, 153)", "rgb(182, 215, 168)",
+                "rgb(162, 196, 201)", "rgb(164, 194, 244)", "rgb(159, 197, 232)", "rgb(180, 167, 214)", "rgb(213, 166, 189)",
+                "rgb(204, 65, 37)", "rgb(224, 102, 102)", "rgb(246, 178, 107)", "rgb(255, 217, 102)", "rgb(147, 196, 125)",
+                "rgb(118, 165, 175)", "rgb(109, 158, 235)", "rgb(111, 168, 220)", "rgb(142, 124, 195)", "rgb(194, 123, 160)",
+                "rgb(166, 28, 0)", "rgb(204, 0, 0)", "rgb(230, 145, 56)", "rgb(241, 194, 50)", "rgb(106, 168, 79)",
+                "rgb(69, 129, 142)", "rgb(60, 120, 216)", "rgb(61, 133, 198)", "rgb(103, 78, 167)", "rgb(166, 77, 121)",
+                "rgb(91, 15, 0)", "rgb(102, 0, 0)", "rgb(120, 63, 4)", "rgb(127, 96, 0)", "rgb(39, 78, 19)",
+                "rgb(12, 52, 61)", "rgb(28, 69, 135)", "rgb(7, 55, 99)", "rgb(32, 18, 77)", "rgb(76, 17, 48)"]
+            ]
+	  });
+          $(".sp-cancel").addClass("btn btn-mini btn-link").removeClass("sp-cancel");
+          $(".sp-choose").addClass("btn btn-mini").removeClass("sp-choose");
+	</script>
+
+        <!--script>
+            var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script-->
+	<script>
+           recalc();
+        </script>
+    </body>
+</html>
