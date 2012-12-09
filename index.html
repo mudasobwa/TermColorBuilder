@@ -25,6 +25,10 @@
               background-repeat: repeat-x;
               border-color: #39152e;
             }
+            footer#footer { 
+              background-color: #eee; bottom: 0; color: #39152e; padding: 1em 3em;
+              font: normal bold 10px 'Ubuntu Mono', monospace;
+            }
             div.terminal { 
               background: url(console/bg-cut.png) 0 0 repeat-y scroll transparent;
 	      font: normal bold 12px/20px 'Ubuntu Mono', monospace; 
@@ -58,13 +62,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </a>
-                    <a class="brand" href="#">Shell Color Builder</a>
-                    <div class="nav-collapse collapse">
-                        <ul class="nav">
-                            <li class="active"><a href="#">Home</a></li>
-                            <li><a href="#about">Author’s blog</a></li>
-                        </ul>
-                    </div><!--/.nav-collapse -->
+                    <a class="brand" href="/">256 Colors in Linux Terminal</a>
                 </div>
             </div>
         </div>
@@ -111,14 +109,27 @@
                     <li><span class="escape"></span><span class="escbegin">\033[</span><span class="escsent"></span><span class="escend">m</span></li></ul>
                </div>
             </div>
+           
+            <div class="row">
+              <p> </p>
+            </div>
+
+            <div class="row">
+              <div class="span12">
+                <h2>Background</h2>
+                <p>Linux terminals have support for 256 colors. Not all of them know about it, though. To enable 256 colors simply <code>export TERM=xterm256color</code> and enjoy.</p>
+                <p>I’m now a little bit tired creating the javascript-spaghetti inside this page. I’m to write a couple of words about technical details …uhmmm soon.</p>
+              </div>
+            </div>
+
 
             <hr>
 
-            <footer id="footer">
-                <p>© mudasobwa 2012 — all rights are kindly given</p>
-            </footer>
-
         </div> <!-- /container -->
+
+        <footer id="footer">
+            <span>© mudasobwa 2012 — all rights are kindly given</span>
+        </footer>
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.8.3.min.js"><\/script>')</script>
