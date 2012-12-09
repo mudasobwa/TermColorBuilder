@@ -144,8 +144,8 @@
           var fgColorDef = "#dddddd"
           var bgColor = "#274e13"
           var bgColorDef = "#39152e"
-          var setFgColor = function(color) { fgColor = color; recalc(); }
-          var setBgColor = function(color) { bgColor = color; recalc(); }
+          var setFgColor = function(color) { fgColor = color; $("#fg_checker").prop("checked", true); recalc(); }
+          var setBgColor = function(color) { bgColor = color; $("#bg_checker").prop("checked", true); recalc(); }
           
           var esccol = function(csscol) {
             r = g = b = 0
