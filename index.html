@@ -43,6 +43,7 @@
 	    input.sp-input { height: 28px; }
 
             .huge { font-size: 56px; line-height: 80px; background-color: #39152e; padding: 0.4em 0.8em; }
+            .tputent { font-size: 30px; line-height: 44px; }
 	    .code { font: normal bold 16px/32px 'Ubuntu Mono', monospace; }
         </style>
 
@@ -75,7 +76,7 @@
                 <h1>Color Builder for Terminal</h1>
                 <p> </p> 
                 <p>Nowadays terminals support 256 colors.</p>
-                <p>Why not use weird escape sentenses in your nifty logging? Choose your preferred colors and copy the crazyescapes below.</p>
+                <p>Why not use weird escape sequences in your nifty logging? Choose your preferred colors and copy the crazyescapes below.</p>
                 <p> </p> 
                 <span class="label huge csscolored">\e[<span class="escsent"></span>m</span>
                 
@@ -102,8 +103,8 @@
                     </div></div>
                 </div>
                 <div class="span4">
-                    <h2>Escape sentences</h2>
-                    <p>Feel free to use one of the following escape sentenses (NB! Insert <span class="escape code">^[</span> using <span class="escbegin code">Ctrl+V</span> followed by <span class="escbegin">Esc</span>):
+                    <h2>Escape sequences</h2>
+                    <p>Feel free to use one of the following escape sequences (NB! Insert <span class="escape code">^[</span> using <span class="escbegin code">Ctrl+V</span> followed by <span class="escbegin">Esc</span>):
                     <ul class="code"><li><span class="escape">^[</span><span class="escbegin">[</span><span class="escsent"></span><span class="escend">m</span></li>
                     <li><span class="escape"></span><span class="escbegin">\e[</span><span class="escsent"></span><span class="escend">m</span></li>
                     <li><span class="escape"></span><span class="escbegin">\033[</span><span class="escsent"></span><span class="escend">m</span></li></ul>
@@ -112,6 +113,14 @@
            
             <div class="row">
               <p> </p>
+            </div>
+
+            <div class="row">
+              <div class="span12">
+                <h2>Kosher way</h2>
+                <p><code>Terminfo</code> suggests using <code>tput</code> command to manage terminal output instead of escape sequences. Though it is not always applicable (e. g. you might want to produce different outputs within one piece of code, making terminfo’s commands useless,) below is the <code>tput</code> command to yield the color chosen.</p>
+                <p><code class="tputent"></code></p>
+              </div>
             </div>
 
             <div class="row">
@@ -178,7 +187,6 @@
             if (escmods.length > 0)
               escmods = escmods.substring(0, escmods.length - 1)
  	    $(".escsent").html(escmods);
-            $(".csscolor").html(fgColor + " @ " + bgColor);
            
             fgc = $("#fg_checker").is(":checked") ? fgColor : fgColorDef 
             bgc = $("#bg_checker").is(":checked") ? bgColor : bgColorDef
@@ -189,6 +197,14 @@
               .css("font-weight", $("#bold_checker").hasClass("active") ? "bold" : "normal")
               .css("font-style", $("#italic_checker").hasClass("active") ? "italic" : "normal")
               .css("text-decoration", $("#underline_checker").hasClass("active") ? "underline" : "none");
+
+            tputtxt = ($("#bold_checker").hasClass("active") ? "tput bold; " : "") +
+                      ($("#italic_checker").hasClass("active") ? "tput sitm; " : "") +
+                      ($("#underline_checker").hasClass("active") ? "tput smul; " : "") +
+                      ($("#reverse_checker").hasClass("active") ? "tput rev; " : "") +
+                      ($("#fg_checker").is(":checked") ? "tput setaf " + esccol(fgColor) + "; " : "") + 
+                      ($("#bg_checker").is(":checked") ? "tput setab " + esccol(bgColor) + "; " : "")
+            $(".tputent").html(tputtxt)
 	  }
           $("#bold_checker").click(function() { $(this).toggleClass("active"); recalc() });
           $("#italic_checker").click(function() { $(this).toggleClass("active"); recalc() });
