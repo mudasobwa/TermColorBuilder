@@ -78,7 +78,7 @@
                 <p>Nowadays terminals support 256 colors.</p>
                 <p>Why not use weird escape sequences in your nifty logging? Choose your preferred colors and copy the crazyescapes below.</p>
                 <p> </p> 
-                <span class="label huge csscolored">\e[<span class="escsent"></span>m</span>
+                <span class="label huge csscolored">\033[<span class="escsent"></span>m</span>
                 
                 <!--p><a class="btn btn-primary btn-large">Technical background &raquo;</a></p-->
             </div>
@@ -97,7 +97,7 @@
                 <div class="span4">
                     <h2>Result</h2>
                     <div class="terminal"><div class="terminal-title">
-                    <p id="command">MY_CLR='\e[<span class="escsent"></span>m' \<span class="carriage">↵</span><br>
+                    <p id="command">MY_CLR='\033[<span class="escsent"></span>m' \<span class="carriage">↵</span><br>
                     echo "${MY_CLR}Hello, world!<span class="carriage">↵</span><br><br>
                     <span class="csscolored">Hello, world!</p>
                     </div></div>
